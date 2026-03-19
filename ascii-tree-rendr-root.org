@@ -1,0 +1,57 @@
+* 樹 ascii tree rendr root
+#+begin_src emacs-lisp :tangle ascii-tree-rendr-root.el
+  ;; 畫 ascii 結構圖
+  ;; (defvar *ascii-tree* nil)
+
+  ;; (setq *ascii-tree* '("abcd"
+  ;; 		     ("foo")
+  ;; 		     ("bar" "abc" "ddd")))
+  ;; "abcd
+  ;; ├─ foo
+  ;; └─ bar
+  ;;    ├─ abc
+  ;;    └─ ddd
+  ;; "
+
+
+  (defun ascii-tree-render (tree &optional prefix is-last)
+    "Render TREE as an ASCII tree.
+  PREFIX is the string to prepend to each line.
+  IS-LAST indicates if the current node is the last child of its parent."
+    (let* ((prefix (or prefix ""))
+           (connector (if is-last "└─ " "├─ "))
+           (line (concat prefix connector (car tree) "\n"))
+           (children (cdr tree))
+           (next-prefix (concat prefix (if is-last "   " "│  "))))
+      (concat
+       line
+       (mapconcat
+        (lambda (child)
+          (if (listp child)
+              (ascii-tree-render
+               child
+               next-prefix
+               (eq child (car (last children))))
+            (concat next-prefix
+                    (if (eq child (car (last children))) "└─ " "├─ ")
+                    child "\n")))
+        children
+        ""))))
+
+  (defun ascii-tree-render-root (tree)
+    "Render TREE with a clean root node.
+  The root node itself is printed without any tree lines."
+    (concat
+     (car tree) "\n"
+     (mapconcat
+      (lambda (child)
+        (ascii-tree-render
+         child
+         ""
+         (eq child (car (last (cdr tree))))))
+      (cdr tree)
+      "")))
+
+  (provide 'ascii-tree-rendr-root.el)
+
+#+end_src
