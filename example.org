@@ -1,0 +1,48 @@
+#+BEGIN_SRC elisp
+(require 'ascii-tree-rendr-root.el)
+(setq *asme-viii-map*
+	     '("asme-viii-map/"
+	       "index.org"
+	       "design-conditions.org"
+	       "materials.org"
+	       ("thickness/"
+		"index.org"
+		"internal-pressure.org"
+		"external-pressure.org")
+	       ("openings"
+		"index.org"
+		"reinforcement.org")
+	       ("welding/"
+		"index.org"
+		"joint-efficiency.org")
+	       ("inspection/"
+		"index.org"
+		"hydrotest.org")
+	       ("certification/"
+		"index.org")))
+
+(ascii-tree-render *asme-viii-map*)
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+├─ asme-viii-map/
+│  ├─ index.org
+│  ├─ design-conditions.org
+│  ├─ materials.org
+│  ├─ thickness/
+│  │  ├─ index.org
+│  │  ├─ internal-pressure.org
+│  │  └─ external-pressure.org
+│  ├─ openings
+│  │  ├─ index.org
+│  │  └─ reinforcement.org
+│  ├─ welding/
+│  │  ├─ index.org
+│  │  └─ joint-efficiency.org
+│  ├─ inspection/
+│  │  ├─ index.org
+│  │  └─ hydrotest.org
+│  └─ certification/
+│     └─ index.org
+#+end_example
