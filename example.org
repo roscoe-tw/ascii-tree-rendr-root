@@ -1,5 +1,5 @@
 #+BEGIN_SRC elisp
-(require 'ascii-tree-rendr-root.el)
+(require 'ascii-tree-rendr-root)
 (setq *asme-viii-map*
 	     '("asme-viii-map/"
 	       "index.org"
