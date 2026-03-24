@@ -52,6 +52,6 @@
       (cdr tree)
       "")))
 
-  (provide 'ascii-tree-rendr-root.el)
+  (provide 'ascii-tree-rendr-root)
 
 #+end_src
