@@ -39,18 +39,23 @@
         ""))))
 
   (defun ascii-tree-render-root (tree)
-    "Render TREE with a clean root node.
-  The root node itself is printed without any tree lines."
-    (concat
-     (car tree) "\n"
+  "修正版本：正確處理子節點可能是字串或列表的情況。"
+  (concat
+   (car tree) "\n"
+   (let ((children (cdr tree)))
      (mapconcat
       (lambda (child)
-        (ascii-tree-render
-         child
-         ""
-         (eq child (car (last (cdr tree))))))
-      (cdr tree)
-      "")))
+        (if (listp child)
+            ;; 如果子節點是列表，才呼叫遞迴函數
+            (ascii-tree-render
+             child
+             ""
+             (eq child (car (last children))))
+          ;; 如果子節點只是字串，手動畫出這一行
+          (let ((is-last (eq child (car (last children)))))
+            (concat (if is-last "└─ " "├─ ") child "\n"))))
+      children
+      ""))))
 
   (provide 'ascii-tree-rendr-root)
 
